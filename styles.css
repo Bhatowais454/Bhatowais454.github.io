@@ -1179,12 +1179,58 @@ footer {
   }
 
   .form-input, .form-select, .form-textarea {
-    font-size: 0.9rem;
-    padding: 0.65rem 0.85rem;
+    font-size: 16px !important; /* Prevents unwanted iOS Safari page zoom */
+    padding: 0.75rem 0.85rem;
   }
 
   .nav-actions .btn {
-    padding: 0.35rem 0.7rem !important;
-    font-size: 0.75rem !important;
+    padding: 0.45rem 0.8rem !important;
+    font-size: 0.8rem !important;
+    min-height: 40px;
   }
+}
+
+/* PWA Standalone & Notch Display Support */
+@media all and (display-mode: standalone) {
+  .navbar {
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+
+/* ==========================================================================
+   Mobile navbar overflow fix (phones only — desktop unchanged)
+   The two nav CTAs + hamburger were overflowing the right edge and getting
+   clipped by body overflow-x:hidden. On phones keep only the hamburger;
+   the "Resume" and "Start a Project" actions live in the dropdown menu.
+   ========================================================================== */
+@media (max-width: 768px) {
+  .nav-container {
+    flex-wrap: nowrap;
+    min-width: 0;
+    gap: 0.5rem;
+  }
+  .logo {
+    min-width: 0;
+    font-size: 1.2rem;
+  }
+  .nav-actions {
+    gap: 0.4rem;
+    margin-left: auto;
+  }
+  .nav-actions .btn {
+    display: none;
+  }
+  .mobile-menu-btn {
+    display: block;
+  }
+}
+
+/* Nav CTAs that appear only inside the mobile dropdown menu */
+.nav-cta-mobile { display: none; }
+@media (max-width: 768px) {
+  .nav-cta-mobile { display: block; }
 }
